@@ -18,8 +18,11 @@ class EmasMan {
     return version;
   }
 
-  Future<bool?> init() {
-    return methodChannel.invokeMethod<bool>('init');
+  Future<bool?> init({bool? debug, bool? autoPageTrack}) {
+    return methodChannel.invokeMethod<bool>('init', {
+      'debug': debug,
+      'autoPageTrack': autoPageTrack,
+    });
   }
 
   Future<bool?> turnOffAutoPageTrack() {

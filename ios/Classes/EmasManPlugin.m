@@ -102,9 +102,14 @@
                   result:(FlutterResult)result  {
     NSLog(@"init man");
 
+    BOOL debug = [call.arguments[@"debug"] boolValue];
+  
     // Mobile Analysis
     _man = [ALBBMANAnalytics getInstance];
-    [_man turnOnDebug];
+
+    if(debug){
+      [_man turnOnDebug];
+    }
     [_man autoInit];
 
     result([NSNumber numberWithBool:TRUE]);

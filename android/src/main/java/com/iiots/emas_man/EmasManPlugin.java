@@ -48,9 +48,6 @@ public class EmasManPlugin implements FlutterPlugin, MethodCallHandler {
       case "getPlatformVersion":
         result.success("Android " + android.os.Build.VERSION.RELEASE);
         break;
-      case "turnOffAutoPageTrack":
-        turnOffAutoPageTrack(call, result);
-        break;
 
       case "userRegister":
         userRegister(call, result);
@@ -83,8 +80,19 @@ public class EmasManPlugin implements FlutterPlugin, MethodCallHandler {
     if (context instanceof Application) {
       Application application = (Application) context;
       manService.getMANAnalytics().init(application, application.getApplicationContext());
-      // 打开调试日志，线上版本建议关闭
-      manService.getMANAnalytics().turnOnDebug();
+
+      Boolean debug = call.argument("debug");
+      Boolean autoPageTrack = call.argument("autoPageTrack");
+
+      if (debug) {
+        // 打开调试日志，线上版本建议关闭
+        manService.getMANAnalytics().turnOnDebug();
+      }
+
+      if (!autoPageTrack) {
+        manService.getMANAnalytics().turnOffAutoPageTrack();
+      }
+
       result.success(true);
     } else {
       result.error("EMAS_MAN", "Invalid application context", null);
@@ -101,11 +109,6 @@ public class EmasManPlugin implements FlutterPlugin, MethodCallHandler {
     String username = call.argument("username");
     String userId = call.argument("userId");
     manService.getMANAnalytics().updateUserAccount(username, userId);
-    result.success(true);
-  }
-
-  private void turnOffAutoPageTrack(MethodCall call, final Result result) {
-    manService.getMANAnalytics().turnOffAutoPageTrack();
     result.success(true);
   }
 
