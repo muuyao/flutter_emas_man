@@ -3,6 +3,7 @@ package com.iiots.emas_man;
 import androidx.annotation.NonNull;
 import android.app.Application;
 import android.content.Context;
+import java.util.Map;
 
 import com.alibaba.sdk.android.man.MANHitBuilders;
 import com.alibaba.sdk.android.man.MANPageHitBuilder;
