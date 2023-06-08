@@ -36,7 +36,7 @@ public class EmasManPlugin implements FlutterPlugin, MethodCallHandler {
     channel.setMethodCallHandler(this);
     context = flutterPluginBinding.getApplicationContext();
 
-    MANService manService = MANServiceProvider.getService();
+    manService = MANServiceProvider.getService();
   }
 
   @Override
@@ -77,7 +77,6 @@ public class EmasManPlugin implements FlutterPlugin, MethodCallHandler {
   }
 
   private void init(MethodCall call, Result result) {
-
     if (context instanceof Application) {
       Application application = (Application) context;
       manService.getMANAnalytics().init(application, application.getApplicationContext());
